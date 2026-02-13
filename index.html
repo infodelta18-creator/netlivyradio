@@ -58,7 +58,7 @@
             padding: 12px 15px; border-radius: 12px; color: var(--text); font-family: var(--font);
         }
         .voice-btn { width: 45px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); cursor: pointer; }
-        
+
         .cats { display: flex; gap: 8px; overflow-x: auto; padding: 10px 20px; scrollbar-width: none; }
         .cat-chip { padding: 8px 16px; background: var(--surface); border-radius: 20px; font-size: 13px; font-weight: 500; white-space: nowrap; border: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
         .cat-chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
@@ -70,6 +70,18 @@
             border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative; overflow: hidden; transform-style: preserve-3d;
         }
+  @media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
         .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 30px -10px var(--primary); border-color: var(--primary); }
         .card img { width: 100%; aspect-ratio: 1; border-radius: 14px; object-fit: cover; margin-bottom: 10px; }
         .card h3 { margin: 0; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -87,11 +99,11 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .player.expanded { bottom: 0; left: 0; right: 0; height: 100%; border-radius: 0; padding: 40px 20px; background: #000; justify-content: center; }
-        
+
         .p-top { display: flex; align-items: center; gap: 12px; width: 100%; }
         .p-img { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; }
         .player.expanded .p-img { width: 280px; height: 280px; border-radius: 20px; margin: 0 auto 30px; box-shadow: 0 20px 50px rgba(29, 185, 84, 0.3); }
-        
+
         .p-info { flex: 1; overflow: hidden; }
         .p-title { font-weight: 700; font-size: 15px; white-space: nowrap; }
         .p-desc { font-size: 12px; color: var(--text-muted); }
@@ -140,7 +152,7 @@
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         @keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(0); opacity: 0; } }
         .floating-heart { position: fixed; font-size: 24px; color: var(--primary); pointer-events: none; z-index: 500; animation: floatHeart 1s forwards; }
-        
+
         #toast-box { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 400; display: flex; flex-direction: column; gap: 10px; }
         .toast { background: var(--surface); border: 1px solid var(--primary); padding: 10px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: slideDown 0.3s; display: flex; align-items: center; gap: 10px; }
         @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -183,7 +195,7 @@
 
 <header>
     <div class="logo">
-        <i class="fas fa-wave-square"></i> NETLIVY <span style="font-size:10px; background:var(--primary); padding:2px 5px; border-radius:4px; color:black;">radio</span>
+         NETLIVY <span style="font-size:10px; background:var(--primary); padding:2px 5px; border-radius:4px; color:black;">radio</span>
     </div>
     <div class="header-actions">
         <div class="battery-stat" id="batteryLevel"><i class="fas fa-battery-full"></i> 100%</div>
@@ -204,8 +216,8 @@
 </div>
 
 <div class="cats">
-    <div class="cat-chip active" onclick="filterCat('all', this)">Barchasi</div>
-    <div class="cat-chip" onclick="filterCat('fav', this)">Sevimlilar ❤️</div>
+    <div class="cat-chip active" onclick="filterCat('all', this)">All radios</div>
+    <div class="cat-chip" onclick="filterCat('fav', this)">Likes</div>
     <div class="cat-chip" onclick="filterCat('pop', this)">Pop</div>
     <div class="cat-chip" onclick="filterCat('rock', this)">Rock</div>
     <div class="cat-chip" onclick="filterCat('jazz', this)">Jazz</div>
@@ -225,16 +237,16 @@
             <i class="fas fa-play-circle play-main" id="playBtn" onclick="event.stopPropagation(); togglePlay()"></i>
         </div>
     </div>
-    
+
     <input type="range" class="vol-slider" min="0" max="1" step="0.1" value="1" oninput="setVolume(this.value)">
-    
+
     <div class="extra-controls">
         <i class="fas fa-heart ctrl-btn" onclick="toggleLikeAnim(this)"></i>
         <i class="fas fa-share-alt ctrl-btn" onclick="shareApp()"></i>
         <i class="fas fa-record-vinyl ctrl-btn" onclick="simulateRecord()"></i>
         <i class="fas fa-expand ctrl-btn" onclick="toggleFullscreen()"></i>
     </div>
-    
+
     <div style="text-align:center; margin-top:10px; display:none;" class="close-expanded" onclick="collapsePlayer()">
         <i class="fas fa-chevron-down" style="color:var(--text-muted)"></i>
     </div>
@@ -352,7 +364,7 @@
     { id: 105, name: "Pop Energy", genre: "pop", url: "https://listen.radioking.com/radio/141961/stream/182095", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 106, name: "Pop Energy", genre: "pop", url: "https://radiofreiburg.ice.infomaniak.ch/radiofreiburg-high.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" }
 
-    
+
     ];
 
     // --- STATE MANAGEMENT ---
@@ -366,7 +378,7 @@
 
     const audio = document.getElementById('audio');
     const player = document.getElementById('mainPlayer');
-    
+
     // --- INITIALIZATION ---
     window.onload = () => {
         renderRadios();
@@ -374,7 +386,7 @@
         setGreeting();
         initParticles();
         checkBattery();
-        
+
         // Theme init
         if(state.theme === 'light') {
             document.body.setAttribute('data-theme', 'light');
@@ -387,11 +399,11 @@
         vibrate();
         const station = stations.find(s => s.id === id);
         state.currentId = id;
-        
+
         document.getElementById('p-title').innerText = station.name;
         document.getElementById('p-desc').innerText = "Jonli Efir • " + station.genre.toUpperCase();
         document.getElementById('p-img').src = station.img;
-        
+
         audio.src = station.url;
         audio.play().then(() => {
             state.playing = true;
@@ -429,7 +441,7 @@
     function renderRadios(filter = 'all') {
         const grid = document.getElementById('radioGrid');
         grid.innerHTML = '';
-        
+
         let list = stations;
         if(filter === 'fav') list = stations.filter(s => state.favorites.includes(s.id));
         else if(filter !== 'all') list = stations.filter(s => s.genre === filter);
@@ -447,7 +459,7 @@
                 card.style.transform = `perspective(500px) rotateX(${(y - rect.height/2)/10}deg) rotateY(${-(x - rect.width/2)/10}deg)`;
             };
             card.onmouseleave = () => card.style.transform = 'none';
-            
+
             card.innerHTML = `
                 <div class="card-menu" onclick="event.stopPropagation(); toggleFav(${s.id})">
                     <i class="fas ${isFav ? 'fa-heart' : 'fa-heart-broken'}" style="color:${isFav ? '#ef4444' : '#fff'}"></i>
@@ -465,14 +477,14 @@
         player.classList.add('expanded');
         document.querySelector('.close-expanded').style.display = 'block';
     }
-    
+
     function collapsePlayer() {
         player.classList.remove('expanded');
         document.querySelector('.close-expanded').style.display = 'none';
     }
 
     // --- FEATURES (THE 30 LIST) ---
-    
+
     // 1. Dark/Light Mode
     function toggleTheme() {
         if(state.theme === 'dark') {
@@ -554,7 +566,7 @@
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
+
         const parts = [];
         for(let i=0; i<50; i++) parts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
 
@@ -589,7 +601,7 @@
         btn.classList.toggle('fas');
         btn.classList.toggle('far');
         btn.style.color = '#ef4444';
-        
+
         // Create floating hearts
         for(let i=0; i<5; i++) {
             const h = document.createElement('i');
@@ -623,7 +635,7 @@
     function toggleTraffic() { state.trafficMode = !state.trafficMode; document.getElementById('trafficSwitch').classList.toggle('on'); }
     function toggleAutoPlay() { showToast("Keyingi safar avto-ijro bo'ladi"); document.getElementById('autoplaySwitch').classList.toggle('on'); }
     function clearAppCache() { localStorage.clear(); location.reload(); }
-    
+
     function shareApp() {
         if(navigator.share) {
             navigator.share({title: 'Netlivy', text: 'Eng zo\'r radio ilova!', url: window.location.href});
@@ -657,16 +669,16 @@
         btn.classList.add('active');
         renderRadios(type);
     }
-    
+
     function vibrate() {
         if(navigator.vibrate) navigator.vibrate(20);
     }
-    
+
     // History (Session only for demo)
     function addToHistory(name) {
         // Logic to store last played
     }
-    
+
     function startTitleScroll() {
         // Simple title animation logic could go here
     }
