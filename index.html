@@ -218,6 +218,8 @@
 <div class="cats">
     <div class="cat-chip active" onclick="filterCat('all', this)">All radios</div>
     <div class="cat-chip" onclick="filterCat('fav', this)">Likes</div>
+     <div class="cat-chip" onclick="filterCat('classic', this)">Classic</div>
+    
     <div class="cat-chip" onclick="filterCat('pop', this)">Pop</div>
     <div class="cat-chip" onclick="filterCat('rock', this)">Rock</div>
     <div class="cat-chip" onclick="filterCat('jazz', this)">Jazz</div>
@@ -257,24 +259,30 @@
 <script>
     // --- DATABASE ---
     const stations = [
-    { id: 1, name: "Deep House", genre: "pop", url: "https://vintageradio.ice.infomaniak.ch/vintageradio-high.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 2, name: "Retro Hits", genre: "rock", url: "https://radionetplus.ice.infomaniak.ch/radionetplus-high.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
+  
+    { id: 1, name: "Vintage fm", genre: "pop", url: "https://vintageradio.ice.infomaniak.ch/vintageradio-high.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 2, name: "Radionet plus", genre: "rock", url: "https://radionetplus.ice.infomaniak.ch/radionetplus-high.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
+  { id: 108, name: "Temp fm", genre: "pop", url: "https://tempradio-live.uz/live", img: "/tempfm.jpeg" },
+  { id: 107, name: "Oriat dono", genre: "classic", url: "https://live.oriatdono.uz/dono/shoutcast", img: "/oriatdono.png" },
+  
     { id: 3, name: "Chill Lofi", genre: "jazz", url: "https://stream.streambase.ch/r32goldies/aac-64", img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300" },
+  { id: 109, name: "Grande", genre: "pop", url: "https://str1.tvcom.uz/RADIO-GRAND/shoutcast", img: "/grandradio.jpeg" },
+  
     { id: 4, name: "Pop Energy", genre: "pop", url: "https://radioclubbing.stream.laut.fm/radioclubbing", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 5, name: "Energy Mix", genre: "rock", url: "https://stream.radiotools.fr:8443/h2o-lac-hd.mp3", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300" },
     { id: 6, name: "Energy Mix", genre: "jazz", url: "https://radio3.pro-fhi.net/radio/9025/stream.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 7, name: "Pop Energy", genre: "pop", url: "https://stream10.xdevel.com/audio15s976748-2112/stream/icecast.audio", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 8, name: "Energy Mix", genre: "jazz", url: "https://exofmreunion.ice.infomaniak.ch/exofmreunion-64.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 9, name: "Energy Mix", genre: "jazz", url: "https://stream.rcs.revma.com/1x41712gy7uvv", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 8, name: "Exo fm", genre: "jazz", url: "https://exofmreunion.ice.infomaniak.ch/exofmreunion-64.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 9, name: "Revma radio", genre: "jazz", url: "https://stream.rcs.revma.com/1x41712gy7uvv", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 10, name: "Energy Mix", genre: "jazz", url: "https://c22.radioboss.fm:8847/stream", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 11, name: "Energy Mix", genre: "jazz", url: "https://jam-on.ice.infomaniak.ch/jam-on-128.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
-    { id: 12, name: "Energy Mix", genre: "rock", url: "https://breakradio.ice.infomaniak.ch/breakradio-192.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 13, name: "Energy Mix", genre: "jazz", url: "https://radioclubbing.stream.laut.fm/radioclubbing", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 12, name: "Break radio", genre: "rock", url: "https://breakradio.ice.infomaniak.ch/breakradio-192.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 13, name: "Radio club", genre: "jazz", url: "https://radioclubbing.stream.laut.fm/radioclubbing", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 14, name: "Energy Mix", genre: "jazz", url: "https://stream.radiojar.com/h6eddm4h9quvv", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 15, name: "Pop Energy", genre: "pop", url: "https://vivafm.ice.infomaniak.ch/vivafm-96.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
+    { id: 15, name: "Viva fm", genre: "pop", url: "https://vivafm.ice.infomaniak.ch/vivafm-96.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 16, name: "Pop Energy", genre: "pop", url: "https://ice04.fluidstream.net/rn1_2.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 17, name: "Energy Mix", genre: "jazz", url: "https://edge17.streamonkey.net/radioluzern-live/stream/mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 18, name: "Energy Mix", genre: "rock", url: "https://gdsfm.out.airtime.pro/gdsfm_a", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
+    { id: 18, name: "Air time", genre: "rock", url: "https://gdsfm.out.airtime.pro/gdsfm_a", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 19, name: "Energy Mix", genre: "jazz", url: "https://listen.radioking.com/radio/605899/stream/669205", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 20, name: "Energy Mix", genre: "jazz", url: "https://play.radioking.io/radio-du-bord-de-l-eau/223426", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 21, name: "Energy Mix", genre: "rock", url: "https://play.radioking.io/agauneradio", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
@@ -288,13 +296,13 @@
     { id: 29, name: "Energy Mix", genre: "jazz", url: "https://play.radioking.io/royale-radio/161119", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 30, name: "Energy Mix", genre: "jazz", url: "https://virageradio.ice.infomaniak.ch/virageradiopremiumweb-320.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 31, name: "Energy Mix", genre: "jazz", url: "https://s10.streamingcloud.online:13552/radioluz320.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 32, name: "Pop Energy", genre: "pop", url: "https://powerupradio.ice.infomaniak.ch/powerupradio-192.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
+    { id: 32, name: "Power Up radio", genre: "pop", url: "https://powerupradio.ice.infomaniak.ch/powerupradio-192.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 33, name: "Energy Mix", genre: "jazz", url: "https://stream.streambase.ch/radiopilatus/mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 34, name: "Energy Mix", genre: "rock", url: "https://neo1.ice.infomaniak.ch/neo1.mp3", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 35, name: "Energy Mix", genre: "jazz", url: "https://streaming.radiomunot.ch/munot/mp3_128", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 36, name: "Energy Mix", genre: "rock", url: "https://stream.radiogrischa.ch/radiogrischa/aac_96", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 37, name: "Energy Mix", genre: "jazz", url: "https://stream.streambase.ch/reviva/aac-64", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
-    { id: 38, name: "Energy Mix", genre: "jazz", url: "https://orbital.ice.infomaniak.ch/orbital.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 38, name: "Orbital fm", genre: "jazz", url: "https://orbital.ice.infomaniak.ch/orbital.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 39, name: "Pop Energy", genre: "pop", url: "https://ch-be06-ice.dmd2streaming.com/radiogloria_lo", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 40, name: "Energy Mix", genre: "jazz", url: "https://rn3.fluidstream.eu/rto.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 41, name: "Energy Mix", genre: "jazz", url: "https://energystgallen.ice.infomaniak.ch/energystgallen-high.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
@@ -314,22 +322,22 @@
     { id: 55, name: "Pop Energy", genre: "pop", url: "http://streaming.radio.funradio.fr/fun-1-44-128", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 56, name: "Energy Mix", genre: "jazz", url: "https://generationfm.ice.infomaniak.ch/generationfm-high.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 57, name: "Pop Energy", genre: "pop", url: "https://jazzradio.ice.infomaniak.ch/jazzradio-suisse.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 58, name: "Energy Mix", genre: "jazz", url: "https://mixxfm2.ice.infomaniak.ch/mixxfmnet.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 58, name: "Mix fm", genre: "jazz", url: "https://mixxfm2.ice.infomaniak.ch/mixxfmnet.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 59, name: "Energy Mix", genre: "rock", url: "https://stunnel2.cyber-streaming.com:9028/stream", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 60, name: "Energy Mix", genre: "jazz", url: "https://n41a-eu.rcs.revma.com/q90fb3dwnwzuv", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 61, name: "Energy Mix", genre: "rock", url: "https://manager5.streamradio.fr:1435/stream", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 62, name: "Energy Mix", genre: "jazz", url: "https://stream.rcs.revma.com/2ykc70sauwzuv", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 63, name: "Pop Energy", genre: "pop", url: "https://francemaghreb2.ice.infomaniak.ch/francemaghreb2-high.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 64, name: "Energy Mix", genre: "jazz", url: "https://beurfm.ice.infomaniak.ch/beurfm-high.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 65, name: "Pop Energy", genre: "pop", url: "https://yellowradio.ice.infomaniak.ch/yellowradio.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 64, name: "Beur fm", genre: "jazz", url: "https://beurfm.ice.infomaniak.ch/beurfm-high.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 65, name: "Yellow radio", genre: "pop", url: "https://yellowradio.ice.infomaniak.ch/yellowradio.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 66, name: "Energy Mix", genre: "jazz", url: "https://k6fm.ice.infomaniak.ch/k6fm-128.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 67, name: "Energy Mix", genre: "rock", url: "https://radiobonheur.ice.infomaniak.ch/radiobonheur-128-1.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 68, name: "Energy Mix", genre: "jazz", url: "https://radiocaroline.ice.infomaniak.ch/radiocaroline-128.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 69, name: "Energy Mix", genre: "rock", url: "https://niceradio.ice.infomaniak.ch/niceradio.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 69, name: "Nice radio", genre: "rock", url: "https://niceradio.ice.infomaniak.ch/niceradio.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 70, name: "Energy Mix", genre: "jazz", url: "https://stream.rcs.revma.com/ew93f4vhy7uvv?aw_0_1st.rpfr=1", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 71, name: "Energy Mix", genre: "jazz", url: "https://listen.radioking.com/radio/74173/stream/112150", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 72, name: "Pop Energy", genre: "pop", url: "https://live-radio-kto.akamaized.net/hls/live/2103303-b/KTO/04.m3u8", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 73, name: "Energy Mix", genre: "jazz", url: "https://laradioplus.ice.infomaniak.ch/laradioplus-high.aac", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 73, name: "Laradio fm", genre: "jazz", url: "https://laradioplus.ice.infomaniak.ch/laradioplus-high.aac", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 74, name: "Energy Mix", genre: "jazz", url: "https://start-latina.ice.infomaniak.ch/start-latina-high.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 75, name: "Energy Mix", genre: "jazz", url: "http://radio74.ice.infomaniak.ch/radio74-high.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 76, name: "Energy Mix", genre: "jazz", url: "https://mfm.ice.infomaniak.ch/mfm-128.mp3", img: "https://images.unsplash.com/photo1493225255756-d9584f8606e9?w=300" },
@@ -350,17 +358,17 @@
     { id: 91, name: "Energy Mix", genre: "jazz", url: "https://radioscoopalpes.ice.infomaniak.ch/radioscoop-alpes-64.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 92, name: "Energy Mix", genre: "rock", url: "https://icecast.skyrock.net/s/natio_aac_128k", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 93, name: "Energy Mix", genre: "jazz", url: "https://icecast.skyrock.net/s/klassiks_aac_128k", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 94, name: "Pop Energy", genre: "pop", url: "https://live.sudradio.fr/sudradio", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 94, name: "Sud radio fm", genre: "classic", url: "https://live.sudradio.fr/sudradio", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 95, name: "Energy Mix", genre: "jazz", url: "https://tsfjazz.ice.infomaniak.ch/tsfjazz-high.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 96, name: "Energy Mix", genre: "jazz", url: "https://virginradio.ice.infomaniak.ch/virgin-radio.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 96, name: "Virgin radio", genre: "jazz", url: "https://virginradio.ice.infomaniak.ch/virgin-radio.aac", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 97, name: "Pop Energy", genre: "pop", url: "https://play.radioking.io/cinemusicradio/62785", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 98, name: "Energy Mix", genre: "jazz", url: "https://listen.radioking.com/radio/8916/stream/64357", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 99, name: "Energy Mix", genre: "jazz", url: "https://kissfm.ice.infomaniak.ch/kissfm-128.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 99, name: "Kiss fm", genre: "jazz", url: "https://kissfm.ice.infomaniak.ch/kissfm-128.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 100, name: "Pop Energy", genre: "pop", url: "https://guadeloupe.ice.infomaniak.ch/guadeloupe-128.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
-    { id: 101, name: "Energy Mix", genre: "rock", url: "https://martinique.ice.infomaniak.ch/martinique-128.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 102, name: "Energy Mix", genre: "jazz", url: "https://diversitefm2.ice.infomaniak.ch/diversitefm2-192.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
+    { id: 101, name: "Martin fm", genre: "rock", url: "https://martinique.ice.infomaniak.ch/martinique-128.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 102, name: "Driver radio", genre: "classic", url: "https://diversitefm2.ice.infomaniak.ch/diversitefm2-192.mp3", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 103, name: "Pop Energy" , genre: "pop", url: "https://podcast.attitudefm.com:8443/;", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
-    { id: 104, name: "Energy Mix", genre: "jazz", url: "https://pianosolo.streamguys1.com/live", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
+    { id: 104, name: "Piano radio", genre: "classic", url: "https://pianosolo.streamguys1.com/live", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" },
     { id: 105, name: "Pop Energy", genre: "pop", url: "https://listen.radioking.com/radio/141961/stream/182095", img: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=300" },
     { id: 106, name: "Pop Energy", genre: "pop", url: "https://radiofreiburg.ice.infomaniak.ch/radiofreiburg-high.mp3", img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" }
 
@@ -408,7 +416,7 @@
         audio.play().then(() => {
             state.playing = true;
             updatePlayBtn();
-            showToast(`🎵 ${station.name} ijro etilmoqda`);
+            showToast(`${station.name} efirda`);
             document.title = `▶ ${station.name} | Netlivy`;
             addToHistory(station.name);
         }).catch(e => showToast("Xatolik: Stream ochilmadi"));
